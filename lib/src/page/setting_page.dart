@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:preferencias_user_app/src/widgets/menu_widget.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends StatefulWidget {
 
   static final String routeName = 'setting';
+
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
+
+  bool _colorSecundario = true;
+  int _genero = 1;
+  String _nombre = 'Pedro';
+
+  TextEditingController _textController;
+
+  @override
+  void initState() {
+    _textController = new TextEditingController(text: _nombre);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +31,60 @@ class SettingPage extends StatelessWidget {
       ),
       drawer: MenuWidget(),
       body: Center(
-        child: Text('Ajustes Page'),
+        child: ListView(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(5.0),
+              child: Text('Setting', style: TextStyle(fontSize: 45.0, fontWeight: FontWeight.bold),),
+            ),
+            Divider(),
+            SwitchListTile(
+              value: _colorSecundario,
+              title: Text('Color secundario'),
+              onChanged: (value){
+                setState(() {
+                  _colorSecundario = value;
+                });
+              },
+            ),
+            RadioListTile(
+              value: 1,
+              title: Text('Masculino'),
+              groupValue: _genero,
+              onChanged: (value){
+                setState(() {
+                  _genero = value;
+                });
+              },
+            ),
+            RadioListTile(
+              value: 2,
+              title: Text('Femenino'),
+              groupValue: _genero,
+              onChanged: (value){
+                setState(() {
+                  _genero = value;
+                });
+              },
+            ),
+            Divider(),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: TextField(
+                controller: _textController,
+                decoration: InputDecoration(
+                  labelText: 'Nombre',
+                  helperText: 'Nombre de la persona usando el teléfono'
+                ),
+                onChanged: (value){
+                  setState(() {
+                    _nombre = value;
+                  });
+                },
+              ),
+            )
+          ],
+        ),
       )
     );
   }
