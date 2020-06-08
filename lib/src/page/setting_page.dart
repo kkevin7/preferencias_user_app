@@ -19,6 +19,7 @@ class _SettingPageState extends State<SettingPage> {
 
   @override
   void initState() {
+    prefs.ultimaPagina= SettingPage.routeName;
     _genero = prefs.genero;
     _colorSecundario = prefs.colorSecundario;
     _nombre = prefs.nombre;
